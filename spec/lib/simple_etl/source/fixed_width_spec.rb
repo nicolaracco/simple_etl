@@ -13,6 +13,10 @@ module SimpleEtl
         it 'should use field attributes to fetch a field' do
           subject.fetch_field_from_row('ITM', { :start => 0, :length => 2 }).should == 'IT'
         end
+
+        it 'should fetch till the end of line if length is :eol' do
+          subject.fetch_field_from_row('ITM', { :start => 1, :length => :eol }).should == 'TM'
+        end
       end
 
       describe FixedWidth::Context do
@@ -48,9 +52,9 @@ module SimpleEtl
             }.to raise_error FieldArgumentError
           end
 
-          it 'should accept the special :eof length' do
+          it 'should accept the special :eol length' do
             expect {
-              subject.field :name, 5, :eof
+              subject.field :name, 5, :eol
             }.to_not raise_error
           end
         end

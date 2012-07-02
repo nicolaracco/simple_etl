@@ -7,7 +7,7 @@ module SimpleEtl
           raise(FieldArgumentError.new "#{name}::length required") unless length
           start = Integer(start) rescue
             raise(FieldArgumentError.new "#{name}::start (#{start}) is not integer")
-          if length != :eof
+          if length != :eol
             length = Integer(length) rescue
               raise(FieldArgumentError.new "#{name}::length (#{length}) is not integer")
           end
@@ -21,7 +21,7 @@ module SimpleEtl
 
       def fetch_field_from_row row, field
         length = field[:length]
-        length = row.length - field[:start] if length == :eof
+        length = row.length - field[:start] if length == :eol
         row[field[:start], length]
       end
     end
