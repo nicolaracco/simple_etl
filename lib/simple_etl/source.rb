@@ -20,6 +20,10 @@ module SimpleEtl
 end
 
 dir = File.expand_path File.dirname __FILE__
-%w(exceptions field_caster row parse_result base fixed_width).each do |file|
+%w(exceptions field_caster row parse_result base_context base).each do |file|
   require File.join dir, "source/#{file}"
+end
+
+%w(context parser).each do |file|
+  require File.join dir, "source/fixed_width/#{file}"
 end

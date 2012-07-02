@@ -2,25 +2,9 @@ require 'spec_helper'
 
 module SimpleEtl
   module Source
-    describe FixedWidth do
-      describe '::new' do
-        it 'should execute the block in the context' do
-          FixedWidth.new { self.class.should == FixedWidth::Context }
-        end
-      end
-
-      describe '#fetch_field_from_row' do
-        it 'should use field attributes to fetch a field' do
-          subject.fetch_field_from_row('ITM', { :start => 0, :length => 2 }).should == 'IT'
-        end
-
-        it 'should fetch till the end of line if length is :eol' do
-          subject.fetch_field_from_row('ITM', { :start => 1, :length => :eol }).should == 'TM'
-        end
-      end
-
-      describe FixedWidth::Context do
-        subject { FixedWidth.new.context }
+    module FixedWidth
+      describe Context do
+        subject { FixedWidth::Parser.new.context }
 
         describe '#field' do
           it 'should append the field definition in the fields list' do
