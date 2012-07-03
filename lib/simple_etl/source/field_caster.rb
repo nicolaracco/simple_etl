@@ -10,7 +10,17 @@ module SimpleEtl
       end
 
       def parse_boolean o
-        !!(o && (o.downcase.strip == 'true' || o.strip == '1'))
+        if o.nil? || o =~ /^\s*$/
+          nil
+        else
+          if %w(true 1).include? o.strip
+            true
+          elsif %w(false 0).include? o.strip
+            false
+          else
+            raise(CastError.new "Cannot cast '#{o}' to 'boolean'")
+          end
+        end
       end
 
       def parse_integer o
