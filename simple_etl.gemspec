@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Nicola Racco"]
   s.email       = ["nicola@nicolaracco.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{An easy-to-use toolkit to help you with ETL (Extract Transform Load) operations}
+  s.description = %q{An easy-to-use toolkit to help you with ETL (Extract Transform Load) operations. Simple ETL 'would be' (:D) framework-agnostic and easy to use.}
 
   s.rubyforge_project = "simple_etl"
 
