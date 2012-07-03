@@ -41,23 +41,16 @@ module SimpleEtl
         result
       end
 
-      def parse_rows list, args = {}
+      def parse src, args = {}
         result = args[:result] || ParseResult.new
-        list.each_with_index do |row, index|
+        if args[:type] == :inline
+          lines = src.lines.map &:chomp
+        else
+          lines = File.readlines(src).map &:chomp
+        end
+        lines.each_with_index do |row, index|
           parse_row row, :row_index => index, :result => result
         end
-        result
-      end
-
-      def parse_text text, args = {}
-        result = args[:result] || ParseResult.new
-        parse_rows text.split("\n"), :result => result
-        result
-      end
-
-      def parse_file file, args = {}
-        result = args[:result] || ParseResult.new
-        parse_text File.read(file), :result => result
         result
       end
 
