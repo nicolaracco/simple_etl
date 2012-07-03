@@ -87,7 +87,7 @@ For each helper, an additional 'required' helper will also be available:
     required_integer :age
 ```
 
-Remember: *every format plugin will define its own field syntax, so remember to check the documentation*
+Remember: *every format plugin will define its own field syntax, so remember to read the [Wiki](https://github.com/nicolaracco/simple_etl/wiki)*
 
 Transformers and generators are functions that help you manipulate the parsed raw data:
 
