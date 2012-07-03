@@ -1,4 +1,4 @@
-simple_etl
+Simple ETL
 ==========
 
 An easy-to-use toolkit to help you with ETL (Extract Transform Load) operations.
