@@ -56,7 +56,7 @@ A template definition is composed by three layers:
 - transformations
 - generators
 
-define a raw field:
+### Fields
 
 ```ruby
     field :name
@@ -89,7 +89,10 @@ For each helper, an additional 'required' helper will also be available:
 
 Remember: *every format plugin will define its own field syntax, so remember to read the [Wiki](https://github.com/nicolaracco/simple_etl/wiki)*
 
-Transformers and generators are functions that help you manipulate the parsed raw data:
+
+### Transformers and generators
+
+They are functions that help you manipulate the parsed raw data:
 
 ```ruby
     transform :name { |name| name.downcase } # => name field is transformed in downcase
