@@ -4,11 +4,13 @@ module SimpleEtl
       attr_reader :fields
       attr_reader :transformations
       attr_reader :generators
+      attr_reader :row_count_to_skip
 
       def initialize
         @fields = []
         @transformations = {}
         @generators = []
+        @row_count_to_skip = 0
       end
 
       def field name, args = {}
@@ -28,6 +30,10 @@ module SimpleEtl
 
       def generate name, args = {}, &block
         generators << args.merge(:name => name, :block => block)
+      end
+
+      def skip_rows row_count
+        @row_count_to_skip = row_count
       end
 
       def method_missing name, *params, &block

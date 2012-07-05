@@ -49,7 +49,9 @@ module SimpleEtl
         result = args[:result] || ParseResult.new
         lines = read_rows src, args
         lines.each_with_index do |row, index|
-          parse_row row, :row_index => index, :result => result
+          if index >= context.row_count_to_skip
+            parse_row row, :row_index => index, :result => result
+          end
         end
         result
       end

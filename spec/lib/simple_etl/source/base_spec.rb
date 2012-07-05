@@ -103,6 +103,18 @@ module SimpleEtl
           end
         end
       end
+
+      describe '#parse' do
+        before do
+          subject.stub :read_rows => [[], []]
+        end
+
+        it 'should skip first rows if specified in context' do
+          subject.parse(nil).rows.count.should == 2
+          subject.context.skip_rows 1
+          subject.parse(nil).rows.count.should == 1
+        end
+      end
     end
   end
 end

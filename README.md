@@ -115,3 +115,16 @@ A transformer is a code block that transform a particular value. It's executed a
 
 A generator is a code block that generates a new property for the current row.
 All the generators are executed when the entire row as been read and transformed.
+
+### Skip rows
+
+If you need to skip some rows before parsing the file you can use the helper 'skip_rows':
+
+```ruby
+  define :format do
+    skip_rows 2
+    field :name
+  end
+```
+
+This will start the parsing from the third row.
