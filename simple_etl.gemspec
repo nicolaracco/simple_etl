@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = SimpleEtl::VERSION
   s.authors     = ["Nicola Racco"]
   s.email       = ["nicola@nicolaracco.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/nicolaracco/simple_etl"
   s.summary     = %q{An easy-to-use toolkit to help you with ETL (Extract Transform Load) operations}
   s.description = %q{An easy-to-use toolkit to help you with ETL (Extract Transform Load) operations. Simple ETL 'would be' (:D) framework-agnostic and easy to use.}
 
