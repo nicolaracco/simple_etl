@@ -24,10 +24,10 @@ module SimpleEtl
       end
 
       def parse_integer o
-        if o.nil? || o =~ /^\s*$/
+        if o.nil? || o.to_s =~ /^\s*$/
           nil
         else
-          if o =~ /^\s*\d+\s*$/
+          if o.to_s =~ /^\s*\d+\s*$/
             o.to_i
           else
             raise(CastError.new "Cannot cast '#{o}' to 'integer'")
@@ -36,11 +36,11 @@ module SimpleEtl
       end
 
       def parse_float o
-        if o.nil? || o =~ /^\s*$/
+        if o.nil? || o.to_s =~ /^\s*$/
           nil
         else
-          if o =~ /^\s*\d*([\.\,]\d+)?\s*$/
-            o.gsub(/\,/, '.').to_f
+          if o.to_s =~ /^\s*\d*([\.\,]\d+)?\s*$/
+            o.to_s.gsub(/\,/, '.').to_f
           else
             raise(CastError.new "Cannot cast '#{o}' to 'float'")
           end

@@ -16,6 +16,10 @@ module SimpleEtl
           subject.parse_integer('00048').should == 48
         end
 
+        it 'accepts numeric objects' do
+          subject.parse_integer(43).should == 43
+        end
+
         it 'automatically strips spaces' do
           subject.parse_integer('  043  ').should == 43
         end
@@ -42,6 +46,10 @@ module SimpleEtl
         it 'returns a number if input has only digits' do
           subject.parse_float('43').should == 43.0
           subject.parse_float('00048').should == 48.0
+        end
+
+        it 'accepts numeric objects' do
+          subject.parse_integer(43).should == 43.0
         end
 
         it 'returns a number if input has also ONE separator' do
