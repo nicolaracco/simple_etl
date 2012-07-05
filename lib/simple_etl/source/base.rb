@@ -41,13 +41,13 @@ module SimpleEtl
         result
       end
 
+      def read_rows src, args
+        raise 'Abstract Method'
+      end
+
       def parse src, args = {}
         result = args[:result] || ParseResult.new
-        if args[:type] == :inline
-          lines = src.lines.map &:chomp
-        else
-          lines = File.readlines(src).map &:chomp
-        end
+        lines = read_rows src, args
         lines.each_with_index do |row, index|
           parse_row row, :row_index => index, :result => result
         end

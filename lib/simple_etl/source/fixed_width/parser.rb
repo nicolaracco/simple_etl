@@ -11,6 +11,10 @@ module SimpleEtl
           length = row.length - field[:start] if length == :eol
           row[field[:start], length]
         end
+
+        def read_rows src, args
+          (args[:type] == :inline && src.lines || File.readlines(src)).map &:chomp
+        end
       end
     end
 
