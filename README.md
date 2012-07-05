@@ -10,6 +10,8 @@ Simple ETL 'would be' (:D) framework-agnostic and easy to use.
 
 Source namespace is responsible of input files parsing.
 
+**Note**: *every format plugin will define its own field syntax derived from the base syntax described here, so remember to read the [Wiki](https://github.com/nicolaracco/simple_etl/wiki)*
+
 First of all you have to define a "source template" inside a definition file (for example _my_template.stl_):
 
 ```ruby
@@ -87,7 +89,7 @@ For each helper, an additional 'required' helper will also be available:
     required_integer :age
 ```
 
-Remember: *every format plugin will define its own field syntax, so remember to read the [Wiki](https://github.com/nicolaracco/simple_etl/wiki)*
+**Note**: *every format plugin will define its own field syntax derived from the base syntax described here, so remember to read the [Wiki](https://github.com/nicolaracco/simple_etl/wiki)*
 
 
 ### Transformers and generators
