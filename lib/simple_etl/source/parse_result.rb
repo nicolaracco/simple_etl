@@ -15,7 +15,7 @@ module SimpleEtl
       end
 
       def errors
-        @rows.inject [] { |memo, row| memo.concat row.errors }
+        @rows.inject([]) { |memo, row| memo.concat row.errors }
       end
 
       def append_row attributes
