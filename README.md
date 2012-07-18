@@ -100,15 +100,15 @@ They are functions that help you manipulate the parsed raw data:
     transform :name { |name| name.downcase } # => name field is transformed in downcase
 
     # a full_name field will be present in the row
-    generate :full_name do |row|
-      "#{row.name} #{row.surname}"
+    generate :full_name do
+      "#{name} #{surname}"
     end
 
-    generate :company do |row|
-      if cmp = Company.find(row.company_id)
+    generate :company do
+      if cmp = Company.find(company_id)
         cmp
       else
-        raise ParseError.new "Cannot find a company with id #{row.company_id}"
+        raise ParseError.new "Cannot find a company with id #{company_id}"
       end
     end
 ```
