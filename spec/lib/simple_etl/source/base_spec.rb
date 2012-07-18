@@ -44,7 +44,7 @@ module SimpleEtl
       end
 
       describe '#generate_field' do
-        let(:r) { Row.new :foo => 'w' }
+        let(:r) { Row.new :attributes => {:foo => 'w'} }
 
         it 'should set the context to the current row' do
           block = lambda { self.class.should == Row }

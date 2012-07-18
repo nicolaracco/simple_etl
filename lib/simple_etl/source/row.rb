@@ -1,11 +1,16 @@
 module SimpleEtl
   module Source
     class Row
-      attr_reader :attributes
+      attr_reader :index
+      attr_reader :attributes, :errors
 
-      def initialize attributes = {}
-        @attributes = attributes
+      def initialize args = {}
+        @index = args[:index]
+        @attributes = args[:attributes] || {}
+        @errors = []
       end
+
+      def valid?; errors.empty?; end
 
       def method_missing name, *args, &block
         md = name.to_s.match /^(\w+)(=)?$/

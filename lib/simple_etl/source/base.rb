@@ -16,15 +16,15 @@ module SimpleEtl
       end
 
       def parse_row row, args = {}
-        row_index = args[:row_index]
         result = args[:result] || ParseResult.new
-        row_obj = Row.new
+        row_obj = Row.new :index => (args[:row_index] || 0)
         context.fields.each do |field|
           begin
             row_obj.attributes[field[:name]] = parse_field row, field, row_obj
           rescue SimpleEtl::Source::ParseError
-            row_info = row_index && "row #{row_index}" || ''
-            result.append_error row_index, "Error parsing #{row_info}, column #{field[:name]}: #{$!.message}", $!
+            $!.row_index = row_obj.index
+            $!.field_name = field[:name]
+            row_obj.errors << $!
           end
         end
         if result.valid?
@@ -32,8 +32,8 @@ module SimpleEtl
             begin
               row_obj.attributes[field[:name]] = generate_field field, row_obj
             rescue SimpleEtl::Source::ParseError
-              row_info = row_index && "for row #{row_index}" || ''
-              result.append_error row_index, "Error generating #{field[:name]} #{row_info}: #{$!.message}", $!
+              $!.row_index = row_obj.index
+              row_obj.errors << $!
             end
           end
         end
@@ -58,8 +58,9 @@ module SimpleEtl
 
       def parse_field row, field, row_obj
         value = FieldCaster.send "parse_#{field[:type]}", fetch_field_from_row(row, field)
-        raise FieldRequiredError if field[:required] &&
-          (value.nil? || value == '')
+        if field[:required] && (value.nil? || value.empty?)
+          raise FieldRequiredError.new "Field is blank"
+        end
         if transformer = context.transformations[field[:name]]
           value = row_obj.instance_exec value, &transformer
         end

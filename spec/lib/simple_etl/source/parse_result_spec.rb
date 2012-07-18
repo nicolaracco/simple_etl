@@ -9,8 +9,19 @@ module SimpleEtl
         end
 
         it 'is false if there are errors' do
-          subject.append_error 0, 'm', Exception.new
+          subject.rows << Row.new
+          subject.rows.first.errors << 'w'
           subject.should_not be_valid
+        end
+      end
+
+      describe '#errors' do
+        it 'is a collection of all row errors' do
+          [Row.new, Row.new].each do |row|
+            2.times { row.errors << 'w' }
+            subject.rows << row
+          end
+          subject.errors.count.should == 4
         end
       end
     end
