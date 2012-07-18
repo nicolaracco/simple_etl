@@ -18,6 +18,7 @@ module SimpleEtl
       def parse_row row, args = {}
         result = args[:result] || ParseResult.new
         row_obj = Row.new :index => (args[:row_index] || 0)
+        result.rows << row_obj
         context.fields.each do |field|
           begin
             row_obj.attributes[field[:name]] = parse_field row, field, row_obj
@@ -27,7 +28,7 @@ module SimpleEtl
             row_obj.errors << $!
           end
         end
-        if result.valid?
+        if row_obj.valid?
           context.generators.each do |field|
             begin
               row_obj.attributes[field[:name]] = generate_field field, row_obj
@@ -37,7 +38,6 @@ module SimpleEtl
             end
           end
         end
-        result.rows << row_obj
         result
       end
 

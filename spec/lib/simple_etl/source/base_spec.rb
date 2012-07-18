@@ -105,10 +105,17 @@ module SimpleEtl
           it 'launches the generator giving the row instance' do
             subject.context.field :sample
             # it will raise error if s not have sample
-            subject.context.generate :foo do
-              sample
-            end
-            expect { subject.parse_row('ITM') }.to_not raise_error
+            subject.context.generate(:foo) { sample }
+            subject.should_receive :generate_field
+            subject.parse_row 'ITM'
+          end
+
+          it 'launches the generator even if the overall result is not valid' do
+            subject.context.field :sample
+            # it will raise error if s not have sample
+            subject.context.generate(:foo) { sample }
+            subject.should_receive :generate_field
+            subject.parse_row 'ITM', :result => double(ParseResult, :valid? => false, :rows => [])
           end
         end
       end
