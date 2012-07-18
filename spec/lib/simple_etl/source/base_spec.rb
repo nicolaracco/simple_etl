@@ -14,8 +14,17 @@ module SimpleEtl
 
         it 'should socks at brush' do
           expect {
-            subject.parse_field 'ITM', { :name => 'IT', :type => :object }, Row.new
+            subject.parse_field Object.new, { :name => 'IT', :type => :object, :required => true }, Row.new
           }.to_not raise_error
+        end
+
+        it 'raises an error if field is required but blank' do
+          [nil, ''].each do |val|
+            FieldCaster.stub! :parse_object => val
+            expect {
+              subject.parse_field '', { :name => 'IT', :type => :object, :required => true }, Row.new
+            }.to raise_error
+          end
         end
 
         context 'when there is a transformation' do

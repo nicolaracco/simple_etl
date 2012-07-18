@@ -58,7 +58,7 @@ module SimpleEtl
 
       def parse_field row, field, row_obj
         value = FieldCaster.send "parse_#{field[:type]}", fetch_field_from_row(row, field)
-        if field[:required] && (value.nil? || value.empty?)
+        if field[:required] && (value.nil? || value.to_s.empty?)
           raise FieldRequiredError.new "Field is blank"
         end
         if transformer = context.transformations[field[:name]]
